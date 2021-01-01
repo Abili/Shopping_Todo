@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Shopping_Todo</string>
+    <string name="add_item">add item</string>
+    <string name="cancel">cancel</string>
+    <string name="ok">ok</string>
+    <string name="pick_item">PICK ITEM</string>
+
+    <string-array name="items">
+        <item>FRUITS</item>
+        <item>passions</item>
+        <item>mangoes</item>
+        <item>water melon</item>
+        <item>pine apples</item>
+        <item>Apples</item>
+        <item>jack fruits</item>
+        <item>fruit 2</item>
+
+
+    </string-array>
+</resources>
