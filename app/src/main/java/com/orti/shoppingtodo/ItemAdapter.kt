@@ -1,14 +1,24 @@
 package com.orti.shoppingtodo
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.orti.shoppingtodo.databinding.RecyclerviewItemBinding
+import java.text.FieldPosition
 
 class ItemAdapter : ListAdapter<Item, ItemAdapter.ItemViewHolder>(ItemsComparator()) {
+
+    private lateinit var onItemClick: ItemAction
+
+    interface ItemAction {
+        fun onClick(getAdapterPosition: FieldPosition)
+    }
+
+    fun setItemOnClickAction(itemOnClickAction: ItemAction?) {
+        onItemClick = itemOnClickAction!!
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder.create(parent)
@@ -16,21 +26,25 @@ class ItemAdapter : ListAdapter<Item, ItemAdapter.ItemViewHolder>(ItemsComparato
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.itemName)
+        holder.bind(current)
     }
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val itemItemView: TextView = itemView.findViewById(R.id.itemName)
+    class ItemViewHolder(private val binding: RecyclerviewItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Item) {
+            binding.itemName.text = item.name
+            binding.itemPrice.text = item.price
 
-        fun bind(text: String?) {
-            itemItemView.text = text
         }
 
         companion object {
             fun create(parent: ViewGroup): ItemViewHolder {
-                val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.recyclerview_item, parent, false)
-                return ItemViewHolder(view)
+                val binding = RecyclerviewItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return ItemViewHolder(binding)
             }
         }
     }
@@ -41,7 +55,13 @@ class ItemAdapter : ListAdapter<Item, ItemAdapter.ItemViewHolder>(ItemsComparato
         }
 
         override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
-            return oldItem.itemName == newItem.itemName
+            if (!oldItem.name.equals(newItem.name) ||
+                !oldItem.price.equals(newItem.price)
+            )
+                return false
+
+            return oldItem.name.equals(newItem.name) &&
+                    oldItem.price.equals(newItem.price)
         }
     }
 }

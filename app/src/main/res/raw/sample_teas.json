@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Genmaicha",
+      "itemPrice": "180000"
+    },
+    {
+      "id": 2,
+      "name": "Earl Grey",
+      "price": "240000"
+    },
+    {
+      "id": 3,
+      "name": "Matcha",
+      "price": "2330"
+    },
+    {
+      "id": 4,
+      "name": "Chamomile",
+      "price": "300000"
+    },
+    {
+      "id": 5,
+      "name": "Rooibos",
+      "price": "300000"
+    },
+    {
+      "id": 6,
+      "name": "Oolong",
+      "price": "300000"
+    }
+  ]
+}
